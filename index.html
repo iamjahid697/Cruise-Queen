@@ -106,8 +106,8 @@
         </div>
     </main>
         <script>
-            function handleTicketChange(product, isIncrease) {
-                    const ticketCount = getInputValue(product);
+            function handleTicketChange(ticket, isIncrease) {
+                    const ticketCount = getInputValue(ticket);
                     let ticketNewCount = ticketCount;
                     if (isIncrease == true) {
                         ticketNewCount = ticketCount + 1;
@@ -115,14 +115,31 @@
                     if (isIncrease == false && ticketCount > 0) {
                         ticketNewCount = ticketCount - 1;
                     }
-                    document.getElementById(product + '-count').value = ticketNewCount;
+                    document.getElementById(ticket + '-count').value = ticketNewCount;
                     calculateSubTotal();
                 }
                 function calculateSubTotal() {
                     const firstClassCount = getInputValue('first-class');
                     const economyCount = getInputValue('economy');
+                    
+                    let firstClassTicketPrice = 0;
+                    let economyTicketPrice = 0;
+                    if(firstClassCount < 0){
+                        firstClassTicketPrice = 0;
+                    }
+                    else{
+                        
+                        firstClassTicketPrice = firstClassCount * 150;
+                    }
+                    if(economyCount < 0){
+                        economyTicketPrice = 0;
+                    }
+                    else{
+                         economyTicketPrice = economyCount * 100;
+                    }
+                    const subTotal = firstClassTicketPrice + economyTicketPrice;
 
-                    const subTotal = firstClassCount * 150 + economyCount * 100;
+                    // const subTotal = firstClassCount * 150 + economyCount * 100;
                     document.getElementById('sub-total').innerText = '$' + subTotal;
 
                     const tax = Math.round(subTotal * 0.1);
@@ -132,8 +149,8 @@
                     document.getElementById('grand-total').innerText = '$' + grandTotal;
 
                 }
-                function getInputValue(product) {
-                    const ticketInput = document.getElementById(product + '-count');
+                function getInputValue(ticket) {
+                    const ticketInput = document.getElementById(ticket + '-count');
                     const ticketCount = parseInt(ticketInput.value);
                     return ticketCount;
                 }
