@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button onclick="confirmAmount()" class="btn-style">Book Now</button>
         </div>
     </main>
         <script>
@@ -139,7 +139,6 @@
                     }
                     const subTotal = firstClassTicketPrice + economyTicketPrice;
 
-                    // const subTotal = firstClassCount * 150 + economyCount * 100;
                     document.getElementById('sub-total').innerText = '$' + subTotal;
 
                     const tax = Math.round(subTotal * 0.1);
@@ -153,6 +152,9 @@
                     const ticketInput = document.getElementById(ticket + '-count');
                     const ticketCount = parseInt(ticketInput.value);
                     return ticketCount;
+                }
+                function confirmAmount(){
+                    confirm('Are you sure you want to buy');
                 }
         </script>
 </body>
